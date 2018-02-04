@@ -4,6 +4,7 @@ import (
 	"net/http"
 )
 
+// Middleware - description for middleware types
 type Middleware func(next http.HandlerFunc) http.HandlerFunc
 
 // ChainMiddleware provides syntactic sugar to create a new middleware

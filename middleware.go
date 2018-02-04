@@ -1,7 +1,6 @@
 package grest
 
 import (
-	"log"
 	"net/http"
 )
 
@@ -21,14 +20,10 @@ func ChainMiddleware(middleware ...Middleware) Middleware {
 	}
 }
 
-// TODO: Figure out logic
-func NewMiddleware(middleware http.HandlerFunc) http.HandlerFunc {
+// RequestLogger - Logs HTTP requests
+func RequestLogger(middleware http.HandlerFunc) http.HandlerFunc {
 	return func(response http.ResponseWriter, request *http.Request) {
 		middleware(response, request)
 		middleware.ServeHTTP(response, request)
 	}
 }
-
-var RequestLogger = NewMiddleware(func(response http.ResponseWriter, request *http.Request) {
-	log.Printf("%s request to %s", request.Method, request.RequestURI)
-})
